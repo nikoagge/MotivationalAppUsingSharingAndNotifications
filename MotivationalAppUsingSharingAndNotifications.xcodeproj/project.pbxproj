@@ -95,6 +95,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1220;
 				LastUpgradeCheck = 1220;
+				ORGANIZATIONNAME = NAPPS;
 				TargetAttributes = {
 					17BCDF7625759015008EB08D = {
 						CreatedOnToolsVersion = 12.2;

@@ -19,9 +19,23 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iTm-uO-xet">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c5E-7C-gac">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c5E-7C-gac">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iTh-pa-OJK">
+                                <rect key="frame" x="308" y="63" width="80" height="44"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="7nI-26-Uq7"/>
+                                    <constraint firstAttribute="width" constant="80" id="V3q-hH-7AS"/>
+                                </constraints>
+                                <state key="normal" title="Share">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="shareButtonTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="noE-Fn-CkC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -30,10 +44,12 @@
                             <constraint firstItem="iTm-uO-xet" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="3GR-9Z-PY7"/>
                             <constraint firstItem="c5E-7C-gac" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3bO-se-IFQ"/>
                             <constraint firstItem="iTm-uO-xet" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Dgd-pc-nmB"/>
+                            <constraint firstItem="iTh-pa-OJK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="19" id="Gpf-y0-xGf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="c5E-7C-gac" secondAttribute="trailing" id="Mxw-vK-fBk"/>
                             <constraint firstAttribute="trailing" secondItem="iTm-uO-xet" secondAttribute="trailing" id="O3h-nx-C7N"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="c5E-7C-gac" secondAttribute="bottom" id="V5Q-G5-CJm"/>
                             <constraint firstItem="c5E-7C-gac" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="unl-js-ALr"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iTh-pa-OJK" secondAttribute="trailing" constant="26" id="vQc-ef-pue"/>
                         </constraints>
                     </view>
                     <connections>
@@ -43,7 +59,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="94"/>
+            <point key="canvasLocation" x="137.68115942028987" y="93.75"/>
         </scene>
     </scenes>
     <resources>

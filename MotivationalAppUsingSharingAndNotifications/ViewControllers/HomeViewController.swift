@@ -14,6 +14,7 @@ class HomeViewController: UIViewController {
     
     let quotes = Bundle.main.decode([Quote].self, from: "quotes.json")
     let images = Bundle.main.decode([String].self, from: "pictures.json")
+    var sharedQuote: Quote?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +30,20 @@ class HomeViewController: UIViewController {
         updateQuote()
     }
     
+    @IBAction func shareButtonTouchUpInside(_ sender: UIButton) {
+        guard let quote = sharedQuote else { fatalError("Attempting to share a non-existing quote.") }
+        let sharedMessage = "\"\(quote.text)\" - \(quote.author)"
+        let activityViewController = UIActivityViewController(activityItems: [sharedMessage], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = sender
+        present(activityViewController, animated: true)
+    }
+    
     private func updateQuote() {
         guard let backgroundImageName = images.randomElement() else { fatalError("Unable to load an image.") }
         backgroundImageView.image = UIImage(named: backgroundImageName)
         
         guard let selectedQuote = quotes.randomElement() else { fatalError("Unable to read a quote.") }
+        sharedQuote = selectedQuote
         let drawBounds = quoteImageView.bounds.inset(by: UIEdgeInsets(top: 250, left: 250, bottom: 250, right: 250))
         var quoteRect = CGRect(x: 0, y: 0, width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
         var fontSize: CGFloat = 120
@@ -54,11 +64,13 @@ class HomeViewController: UIViewController {
             
             let graphicsImageRendererFormat = UIGraphicsImageRendererFormat()
             graphicsImageRendererFormat.opaque = false
-            let graphicsImageRenderer = UIGraphicsImageRenderer(bounds: quoteRect, format: graphicsImageRendererFormat)
+            let graphicsImageRenderer = UIGraphicsImageRenderer(bounds: quoteRect.insetBy(dx: -30, dy: -30), format: graphicsImageRendererFormat)
             
             quoteImageView.image = graphicsImageRenderer.image { context in
-                context.cgContext.setShadow(offset: .zero, blur: 10, color: UIColor.black.cgColor)
-                attributedString.draw(in: quoteRect)
+                for i in 1...5 {
+                    context.cgContext.setShadow(offset: .zero, blur: CGFloat(i) * 2, color: UIColor.black.cgColor)
+                    attributedString.draw(in: quoteRect)
+                }
             }
         }
     }

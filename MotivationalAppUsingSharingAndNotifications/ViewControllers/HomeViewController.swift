@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class HomeViewController: UIViewController {
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -18,6 +19,12 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (allowed, error) in
+            if allowed {
+                configureAlerts()
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -70,6 +77,35 @@ class HomeViewController: UIViewController {
                 for i in 1...5 {
                     context.cgContext.setShadow(offset: .zero, blur: CGFloat(i) * 2, color: UIColor.black.cgColor)
                     attributedString.draw(in: quoteRect)
+                }
+            }
+        }
+    }
+    
+    private func configureAlerts() {
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        
+        let shuffledQuotes = quotes.shuffled()
+        
+        for i in 1...7  {
+            let mutableNotificationContent = UNMutableNotificationContent()
+            mutableNotificationContent.title = "Inner Peace"
+            mutableNotificationContent.body = shuffledQuotes[i].text
+            
+            var dateComponents = DateComponents()
+            dateComponents.day = i
+            
+            if let alertDate = Calendar.current.date(byAdding: dateComponents, to: Date()) {
+                var alertComponents = Calendar.current.dateComponents([.day, .month, .year], from: alertDate)
+                alertComponents.hour = 10
+                let timeIntervalNotificationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(i) * 5, repeats: false)
+                let notificationRequest = UNNotificationRequest(identifier: UUID().uuidString, content: mutableNotificationContent, trigger: timeIntervalNotificationTrigger)
+                
+                UNUserNotificationCenter.current().add(notificationRequest) { (error) in
+                    if let error = error {
+                        debugPrint(error.localizedDescription)
+                    }
                 }
             }
         }

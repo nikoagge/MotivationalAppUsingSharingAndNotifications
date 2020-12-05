@@ -25,6 +25,10 @@ class HomeViewController: UIViewController {
         updateQuote()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        updateQuote()
+    }
+    
     private func updateQuote() {
         guard let backgroundImageName = images.randomElement() else { fatalError("Unable to load an image.") }
         backgroundImageView.image = UIImage(named: backgroundImageName)
@@ -53,6 +57,7 @@ class HomeViewController: UIViewController {
             let graphicsImageRenderer = UIGraphicsImageRenderer(bounds: quoteRect, format: graphicsImageRendererFormat)
             
             quoteImageView.image = graphicsImageRenderer.image { context in
+                context.cgContext.setShadow(offset: .zero, blur: 10, color: UIColor.black.cgColor)
                 attributedString.draw(in: quoteRect)
             }
         }
